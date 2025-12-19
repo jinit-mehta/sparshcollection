@@ -1,14 +1,12 @@
 <?php
-// Path to the front controller
+// Path to the front controller (this file)
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
-chdir(FCPATH);
 
-// LOAD COMPOSER AUTOLOADER FIRST (critical fix)
-require FCPATH . '../vendor/autoload.php';
-
-// Load paths config
+// Load our paths config file
 require FCPATH . '../app/Config/Paths.php';
+
+// Create the Paths instance
 $paths = new Config\Paths();
 
-// Load framework bootstrap
+// Load the framework bootstrap file
 require rtrim($paths->systemDirectory, '\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
