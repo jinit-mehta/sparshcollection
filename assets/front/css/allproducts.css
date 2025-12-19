@@ -1,0 +1,165 @@
+/* Main container setup */
+#product-page {
+  padding: 30px 0;
+  background-color: #fff;
+}
+
+.container-xl {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 15px;
+}
+
+/* Product Grid Layout */
+#productGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+}
+
+/* Product Item Styling */
+.product-item {
+  text-align: left;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Image Container and Styling */
+.product-item a {
+  display: block;
+  overflow: hidden;
+  position: relative;
+}
+
+.product-item img {
+  width: 100%;
+  height: 400px;
+  object-fit: contain;
+  transition: transform 0.3s ease;
+}
+
+/* Hover Effect */
+.product-item a:hover img {
+  transform: scale(1.2);
+}
+
+/* Product Text Styling */
+.product-item h6 {
+  font-size: 15px;
+  color: #333;
+  margin: 8px 0 4px 0;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.product-item h6[style*="color:grey"] {
+  font-size: 14px;
+  font-weight: normal;
+  color: #666;
+  margin-top: 4px;
+}
+
+.price {
+  font-size: 15px;
+  font-weight: 500;
+  margin: 4px 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .container-xl {
+    max-width: 960px;
+  }
+  
+  .product-item img {
+    height: 350px;
+  }
+}
+
+@media (max-width: 992px) {
+  .container-xl {
+    max-width: 720px;
+  }
+  
+  .product-item img {
+    height: 300px;
+  }
+}
+
+/* Tablet and Mobile View */
+@media (max-width: 768px) {
+  #productGrid {
+    grid-template-columns: repeat(2, 1fr); /* Change to 2 columns */
+    gap: 15px;
+  }
+  
+  .product-item img {
+    height: 250px;
+  }
+  
+  .product-item h6 {
+    font-size: 14px;
+  }
+  
+  .price {
+    font-size: 14px;
+  }
+}
+
+/* Small Mobile View */
+@media (max-width: 576px) {
+  #productGrid {
+    grid-template-columns: repeat(2, 1fr); /* Maintain 2 columns */
+    gap: 10px;
+  }
+  
+  .container-xl {
+    padding: 0 10px;
+  }
+  
+  .product-item img {
+    height: 180px; /* Adjusted height for mobile */
+  }
+  
+  .product-item h6 {
+    font-size: 13px;
+    margin: 4px 0 2px 0;
+  }
+  
+  .product-item h6[style*="color:grey"] {
+    font-size: 12px;
+  }
+  
+  .price {
+    font-size: 13px;
+  }
+}
+
+/* Extra Small Mobile View */
+@media (max-width: 375px) {
+  #productGrid {
+    gap: 8px;
+  }
+  
+  .product-item img {
+    height: 150px;
+  }
+  
+  .product-item h6 {
+    font-size: 12px;
+  }
+  
+  .price {
+    font-size: 12px;
+  }
+}
+
+/* No Products Found Styling */
+#productGrid p {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 20px;
+  color: #666;
+  font-size: 16px;
+}

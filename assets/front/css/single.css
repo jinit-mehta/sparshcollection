@@ -1,0 +1,820 @@
+.bg-light {
+  background-color: #f8f9fa !important;
+}
+
+.border {
+  border: 1px solid #e0e0e0 !important;
+}
+
+.btn-primary {
+  background-color: #273b79 !important;
+  border-color: #273b79 !important;
+}
+
+.btn-primary:hover {
+  background-color: #1a1f5b !important;
+  border-color: #1a1f5b !important;
+}
+
+.prod_pg1rd1r h4 {
+  color: #273b79;
+}
+
+.prod_pg1rd1r h6,
+.prod_pg1rd4 h4 {
+  color: #333;
+}
+
+.prod_pg1rd4i .prod_h2i1 {
+  transition: transform 0.2s;
+}
+
+.prod_pg1rd4i .prod_h2i1:hover {
+  transform: scale(1.05);
+}
+
+.bg-green {
+  background-color: #4caf50;
+}
+
+.list-group-item {
+  display: flex;
+  align-items: center;
+  border: none;
+}
+
+.list-group-item i {
+  margin-right: 10px;
+  font-size: 18px;
+}
+/* Unique "Explore More Images" Overlay */
+.view-more-overlay {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: rgba(39, 59, 121, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 1em;
+  transition: background 0.3s;
+  text-decoration: none;
+}
+.view-more-overlay:hover {
+  background: rgba(39, 59, 121, 0.9);
+}
+.view-more-overlay .overlay-text {
+  color: white;
+  text-decoration: none;
+}
+
+/* Styling for "Add to Cart" and "Buy Now" buttons */
+.btn-primary,
+.btn-dark {
+  background-color: #273b79;
+  border: none;
+  color: white;
+  font-weight: bold;
+  width: 150px;
+}
+.btn-primary:hover,
+.btn-dark:hover {
+  background-color: #1e2c58;
+}
+
+/* Styling for Shipment Timeline */
+.shipment-timeline .timeline-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.shipment-timeline .timeline-step i {
+  color: #273b79;
+}
+.shipment-timeline .timeline-step p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+/* Text Color */
+.text-primary,
+h4.fs-5,
+.shipment-timeline i,
+.price-breakup-section h4 {
+  color: #273b79 !important;
+}
+/* Add responsiveness */
+@media (max-width: 768px) {
+  #prod_pg .row {
+    flex-direction: column;
+  }
+
+  #prod_pg .col-lg-6 {
+    margin-bottom: 20px;
+  }
+
+  .btn-primary,
+  .btn-dark {
+    width: 50%;
+    margin-bottom: 10px;
+  }
+}
+/* Disable scroll for larger screens */
+.responsive-table-container {
+  overflow-x: visible;
+}
+
+/* Add scroll for small screens */
+@media (max-width: 768px) {
+  .responsive-table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch; /* Smooth scrolling on mobile devices */
+  }
+  .responsive-table-container table {
+    min-width: 700px; /* Ensure table doesn't shrink too much */
+  }
+}
+
+/* Optional: Custom scrollbar styles for small screens */
+@media (max-width: 768px) {
+  .responsive-table-container::-webkit-scrollbar {
+    height: 8px;
+  }
+  .responsive-table-container::-webkit-scrollbar-thumb {
+    background: #273b79;
+    border-radius: 5px;
+  }
+  .responsive-table-container::-webkit-scrollbar-track {
+    background: #f1f1f1;
+  }
+}
+.price-breakup-section {
+  margin-top: 20px;
+  width: 100%; /* Full width */
+}
+
+.price-breakup-section h3 {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 20px; /* Increased font size */
+  color: #273b79; /* Header text color */
+  font-weight: bold; /* Make the heading bold */
+}
+
+.price-breakup-section h4 i {
+  margin-left: 10px; /* Move the dropdown arrow closer to the text */
+  transition: transform 0.3s ease; /* Smooth arrow rotation */
+}
+
+.price-breakup-section.active h4 i {
+  transform: rotate(180deg); /* Rotate arrow when active */
+}
+
+.price-breakup-section h5 i {
+  font-size: 5px; /* Smaller carrot sign */
+  margin-left: 10px; /* Move the dropdown arrow closer to the text */
+  transition: transform 0.3s ease; /* Smooth arrow rotation */
+}
+
+.price-breakup-section .description-container {
+  display: none; /* Initially hidden */
+  margin-top: 10px; /* Add some spacing between the header and the content */
+}
+
+.price-breakup-section.active .description-container {
+  display: block; /* Display as a single column */
+}
+
+.price-breakup-section .description-item {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+  align-items: center; /* Vertically center the label and value */
+  padding: 6px 0;
+  font-size: 18px; /* Increased font size */
+  position: relative; /* Required for pseudo-element */
+}
+
+.price-breakup-section .description-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 50%; /* Line will span only half the width */
+  bottom: 0;
+  height: 1px;
+  background-color: #f1f1f1; /* Light border for separation */
+}
+
+.price-breakup-section .description-item .label {
+  font-weight: bold;
+  color: #273b79; /* Blue color for labels */
+  margin-right: 5px; /* Reduced space between label and value */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.price-breakup-section .description-item .value {
+  color: #273b79; /* Same blue color as labels */
+  margin-left: 5px; /* Add a small space between the colon and value */
+}
+.price-breakup-section {
+  margin-top: 20px;
+  width: 100%; /* Full width */
+}
+
+.price-breakup-section h3 {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  font-size: 20px; /* Increased font size */
+  color: #273b79; /* Header text color */
+  font-weight: bold; /* Make the heading bold */
+}
+
+.price-breakup-section h4 i {
+  margin-left: 10px; /* Move the dropdown arrow closer to the text */
+  transition: transform 0.3s ease; /* Smooth arrow rotation */
+}
+
+.price-breakup-section.active h4 i {
+  transform: rotate(180deg); /* Rotate arrow when active */
+}
+
+.price-breakup-section .description-container {
+  display: none; /* Initially hidden */
+  margin-top: 10px; /* Add some spacing between the header and the content */
+}
+
+.price-breakup-section.active .description-container {
+  display: block; /* Display as a single column */
+}
+
+.price-breakup-section .description-item {
+  display: flex;
+  justify-content: flex-start; /* Align items to the start */
+  align-items: center; /* Vertically center the label and value */
+  padding: 6px 0;
+  font-size: 17px; /* Increased font size */
+  position: relative; /* Required for pseudo-element */
+}
+
+.price-breakup-section .description-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 50%; /* Line will span only half the width */
+  bottom: 0;
+  height: 0.5px; /* Thinner line */
+  background-color: rgba(
+    241,
+    241,
+    241,
+    0.5
+  ); /* Light border with transparency */
+}
+
+.price-breakup-section .description-item .label {
+  font-weight: bold;
+  color: #273b79; /* Blue color for labels */
+  margin-right: 5px; /* Reduced space between label and value */
+  white-space: nowrap; /* Prevent wrapping */
+}
+
+.price-breakup-section .description-item .value {
+  color: rgb(0, 0, 0); /* Same blue color as labels */
+  margin-left: 5px; /* Add a small space between the colon and value */
+}
+
+/* Multi-row for Shape, Size, Dia Pcs, Dia WT */
+.price-breakup-section .description-item.multi-row {
+  display: grid;
+  grid-template-columns: repeat(
+    2,
+    1fr
+  ); /* 2 columns for Shape, Size, Dia Pcs, Dia WT */
+  gap: 10px;
+  padding: 6px 0;
+}
+.fa-chevron-up:before {
+  content: "\f077";
+  font-size: 20px;
+}
+.price-breakup-section .description-item.multi-row .label,
+.price-breakup-section .description-item.multi-row .value {
+  text-align: left;
+  font-size: 13px;
+}
+
+.price-breakup-section .description-item.multi-row .label {
+  font-weight: bold;
+  color: #273b79;
+}
+
+.price-breakup-section .description-item.multi-row .value {
+  color: #555;
+}
+
+/* Color Choice Section */
+.color-choice-section {
+  margin-top: 20px; /* Increased margin to add more gap */
+}
+
+.color-choice-section h5 {
+  color: #273b79; /* Blue color for the heading */
+  font-size: 16px; /* Adjust font size if needed */
+  margin-bottom: 0; /* Remove default margin */
+}
+
+.color-option {
+  position: relative;
+  display: inline-block; /* Ensure color options are inline */
+}
+
+.color-label {
+  display: block;
+  width: 30px; /* Smaller circle */
+  height: 30px; /* Smaller circle */
+  border: 2px solid #ddd; /* Default border */
+  border-radius: 50%; /* Make it a circle */
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+/* Hover effect */
+.color-label:hover {
+  transform: scale(1.1); /* Slightly enlarge on hover */
+}
+
+/* Highlight selected color */
+.color-label.selected {
+  border-color: #273b79; /* Blue border for selected color */
+  box-shadow: 0 0 0 2px #273b79; /* Add a shadow to highlight */
+}
+
+/* Shipment Timeline Styling */
+.shipment-timeline .icon-container i {
+  font-size: 3rem; /* Reduced size of icons */
+  color: #273b79; /* Blue color for icons */
+}
+
+/* New Section: Free Shipping, 12hrs Exchange, Skin Safe Jewellery, Certified */
+.new-section {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom:10px;
+}
+
+.new-section .row {
+  display: flex; /* Default layout for desktop */
+  justify-content: space-between; /* Distribute items evenly */
+  align-items: center; /* Center items vertically */
+}
+
+.new-section .col-md-3 {
+  flex: 1; /* Each item takes equal space */
+  text-align: center;
+  padding: 10px;
+}
+
+.new-section .icon-container {
+  margin-bottom: 8px; /* Space between icon and text */
+}
+
+.new-section .icon-container i,
+.new-section .icon-container img {
+  font-size: 2.5rem; /* Icon size */
+  color: #273b79; /* Icon color */
+  width: 50px; /* Consistent icon size */
+  height: 50px; /* Consistent icon size */
+}
+
+.new-section .icon-container img {
+  filter: brightness(0) saturate(100%) invert(15%) sepia(50%) saturate(2000%)
+    hue-rotate(220deg); /* Icon color for custom image */
+}
+
+.new-section p {
+  margin: 0;
+  font-size: 14px;
+  color: #273b79; /* Text color */
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  .new-section .row {
+    display: grid; /* Use grid layout for mobile */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile */
+    gap: 20px; /* Spacing between items */
+    justify-items: center; /* Center items horizontally */
+  }
+
+  .new-section .col-md-3 {
+    flex: none; /* Reset flex for grid layout */
+  }
+
+  /* Review Section Mobile Adjustments */
+  .review-form textarea {
+    width: 100%; /* Full width */
+    min-height: 150px; /* Increased height */
+    font-size: 16px; /* Increased font size */
+  }
+
+  .review-step .d-flex.justify-content-between {
+    gap: 10px; /* Space between buttons */
+  }
+  .review-step .btn {
+    padding: 8px 16px; /* Compact buttons */
+    font-size: 14px; /* Smaller font size */
+  }
+
+  .review-step#step3 .row {
+    flex-direction: column; /* Stack name and email vertically */
+  }
+  .review-step#step3 .col-md-6 {
+    width: 100%; /* Full width for name and email fields */
+    margin-bottom: 10px; /* Space between fields */
+  }
+
+  .review-step#step4 .d-flex.justify-content-between {
+    display: flex;
+    justify-content: space-between; /* Align buttons in the same line */
+    align-items: center;
+  }
+  .review-step#step4 .custom-file-label {
+    font-size: 16px; /* Increased font size */
+    text-align: center; /* Center text */
+    margin-top: 10px; /* Space below image icon */
+  }
+  .review-step#step4 .photo-icon {
+    margin-bottom: 10px; /* Space between icon and file input */
+  }
+}
+
+/* Side-stick circle styling */
+.side-stick {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  width: 75px;
+  height: 75px;
+  background-color: #273b79;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+}
+
+.side-stick i {
+  color: white;
+  font-size: 24px;
+}
+
+/* Sticky Options Modal Styling */
+.sticky-modal {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 80px;
+  background-color: rgba(
+    39,
+    59,
+    121,
+    0.9
+  ); /* Semi-transparent blue background */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1001;
+  padding: 20px;
+}
+
+.sticky-modal-content {
+  position: relative;
+}
+
+.sticky-option {
+  padding: 10px;
+  margin: 5px 0;
+  background-color: rgba(255, 255, 255, 0.1); /* Slight transparency */
+  border-radius: 4px;
+  cursor: pointer;
+  text-align: center;
+  color: white; /* White text */
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.sticky-option:hover {
+  background-color: rgba(255, 255, 255, 0.2); /* Hover effect */
+}
+
+/* Background overlay when sticky modal is open */
+.overlay {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 1000;
+}
+
+/* Popup Modal Styling */
+.popup-modal {
+  display: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #ffffff; /* White background */
+  border-radius: 12px; /* Rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2); /* Soft shadow */
+  z-index: 1002;
+  padding: 30px;
+  width: 40%; /* Full width on mobile */
+  max-width: 600px; /* Increased width for desktop view */
+  text-align: center;
+  color: #273b79; /* Blue text */
+  border: 2px solid #273b79; /* Blue border */
+  max-height: 90vh; /* Limit height to 90% of viewport height */
+  overflow-y: auto; /* Add scroll if content exceeds height */
+}
+
+.popup-content {
+  position: relative;
+}
+
+.popup-content p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.6; /* Better readability */
+}
+
+.popup-content .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: #273b79; /* Blue close button */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.popup-content .close-btn:hover {
+  color: #1a2a5c; /* Darker blue on hover */
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .sticky-modal {
+    right: 10px;
+    bottom: 70px;
+  }
+
+  .popup-modal {
+    width: 90%; /* Keep mobile view as it is */
+  }
+}
+
+/* Review Section Styling */
+.review-section {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-section h2 {
+  color: #273b79;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.review-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.review-header .cumulative-rating {
+  font-size: 24px;
+  color: #273b79;
+  font-weight: bold;
+  margin-right: 10px;
+}
+
+.review-header .rating-stars {
+  font-size: 24px;
+  color: #ffd700;
+}
+
+.write-review-btn {
+  background-color: #273b79;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.write-review-btn:hover {
+  background-color: #1a2a5c;
+}
+
+.rating-stars-popup {
+  font-size: 48px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.rating-stars-popup .star {
+  color: #ddd;
+  transition: color 0.3s ease;
+}
+
+.rating-stars-popup .star.selected,
+.rating-stars-popup .star:hover {
+  color: #ffd700;
+}
+
+.review-form textarea {
+  width: 100%;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  margin-bottom: 20px;
+  font-size: 14px;
+  resize: vertical;
+}
+
+.review-form button {
+  background-color: #273b79;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.review-form button:hover {
+  background-color: #1a2a5c;
+}
+
+.reviews-list .review-item {
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 20px;
+  margin-bottom: 40px;
+  border: 1px solid #ddd;
+}
+
+.reviews-list .review-item img {
+  max-width: 100px;
+  border-radius: 8px;
+  margin-top: 10px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .review-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .write-review-btn {
+    margin-top: 10px;
+  }
+}
+
+/* Review Steps Styling */
+.review-step {
+  display: none;
+  flex-direction: column;
+  align-items: center; /* Center horizontally */
+  justify-content: center; /* Center vertically */
+  text-align: center; /* Center text */
+  padding: 30px; /* Increased padding for more space */
+  min-height: 600px; /* Increased height for slides */
+}
+
+.review-step.active {
+  display: flex; /* Display as flex when active */
+}
+
+.next-btn,
+.prev-btn {
+  margin-top: 20px;
+}
+
+/* Upload Photo Slide Styling */
+.photo-icon {
+  margin-bottom: 20px;
+}
+
+.custom-file {
+  margin-bottom: 20px;
+  text-align: center; /* Center file input */
+}
+
+.custom-file-label {
+  text-align: left;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.d-flex.justify-content-between {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Adjust Modal Height for Mobile View */
+@media (max-width: 768px) {
+  .review-step {
+    min-height: 500px; /* Increased height for mobile slides */
+  }
+
+  .review-form textarea {
+    min-height: 200px; /* Larger textarea for mobile */
+  }
+}
+/* Action Buttons (Add to Cart and Buy Now) */
+.action-button {
+  width: 100%; /* Full width */
+  padding: 12px 20px; /* Consistent padding */
+  font-size: 16px; /* Consistent font size */
+  font-weight: 600; /* Bold text */
+  border-radius: 4px; /* Rounded corners */
+  border: none; /* Remove default border */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+  display: flex; /* Align icon and text */
+  align-items: center; /* Center icon and text vertically */
+  justify-content: center; /* Center icon and text horizontally */
+  gap: 8px; /* Space between icon and text */
+}
+
+/* Add to Cart Button */
+.btn-primary.action-button {
+    margin-top:15px;
+    margin-bottom:15px;
+  background-color: #273b79; /* Primary color */
+  color: white; /* White text */
+}
+
+/* Buy Now Button */
+.btn-success.action-button {
+  background-color: #273b79; /* Success color */
+  color: white; /* White text */
+      margin-top: 15px;
+}
+
+/* Hover Effects */
+.action-button:hover {
+  transform: translateY(-2px); /* Slight lift on hover */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+/* Active Effects */
+.action-button:active {
+  transform: translateY(0); /* Reset lift on click */
+  box-shadow: none; /* Remove shadow on click */
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .action-button {
+    font-size: 14px; /* Smaller font size for mobile */
+    padding: 10px 16px; /* Smaller padding for mobile */
+  }
+}
+/* Error Messages */
+/* Validation Messages */
+.text-muted {
+  color: #6c757d; /* Gray color for subtle messages */
+  font-size: 0.875rem; /* Smaller font size */
+  margin-top: 0.25rem; /* Space above the message */
+  display: none; /* Hidden by default */
+}
+
+/* Highlight invalid fields */
+.form-control:invalid {
+  border-color: #dc3545; /* Red border for invalid fields */
+}
+
+.form-control:invalid:focus {
+  box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25); /* Red shadow for invalid fields */
+}

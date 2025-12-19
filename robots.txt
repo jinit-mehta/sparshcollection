@@ -1,0 +1,11 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /checkout/
+Disallow: /cart/
+Disallow: /customer/orders/
+Disallow: /customer/login/
+Disallow: /customer/register/
+Allow: /
+
+Sitemap: https://sparshcollection.in/sitemap.xml
+

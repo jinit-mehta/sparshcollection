@@ -1,0 +1,69 @@
+# =========================
+# OS / Editor junk
+# =========================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+.vscode/
+.idea/
+
+# =========================
+# Environment files
+# =========================
+.env
+.env.*
+!.env.example
+
+# =========================
+# Logs & cache
+# =========================
+writable/cache/*
+writable/logs/*
+writable/debugbar/*
+writable/session/*
+writable/uploads/*
+!writable/.htaccess
+!writable/index.html
+
+# =========================
+# PHPUnit / Tests
+# =========================
+phpunit.xml
+phpunit.xml.dist
+tests/_support/_generated/
+
+# =========================
+# Composer
+# =========================
+/vendor/
+composer.phar
+
+# =========================
+# Build / temp artifacts
+# =========================
+build/
+builds/
+node_modules/
+npm-debug.log*
+yarn-error.log*
+
+# =========================
+# CI4 generated files
+# =========================
+spark.bat
+
+# =========================
+# Uploads (user content)
+# =========================
+public/assets/images/reviews/*
+public/assets/uploads/*
+!public/assets/images/reviews/.gitkeep
+!public/assets/uploads/.gitkeep
+
+# =========================
+# Server-specific files
+# =========================
+.htaccess.bak
+.override
+DO NOT UPLOAD FILES HERE
