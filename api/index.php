@@ -1,15 +1,14 @@
 <?php
-
-require __DIR__ . '/../vendor/autoload.php';
-
+// Path to the front controller
 define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR);
-define('ROOTPATH', dirname(__DIR__) . DIRECTORY_SEPARATOR);
-define('APPPATH', ROOTPATH . 'app' . DIRECTORY_SEPARATOR);
-define('SYSTEMPATH', ROOTPATH . 'system' . DIRECTORY_SEPARATOR);
-define('WRITEPATH', sys_get_temp_dir() . DIRECTORY_SEPARATOR);
+chdir(FCPATH);
 
-require SYSTEMPATH . 'bootstrap.php';
+// LOAD COMPOSER AUTOLOADER FIRST (critical fix)
+require FCPATH . '../vendor/autoload.php';
 
-$app = Config\Services::codeigniter();
-$app->initialize();
-$app->run();
+// Load paths config
+require FCPATH . '../app/Config/Paths.php';
+$paths = new Config\Paths();
+
+// Load framework bootstrap
+require rtrim($paths->systemDirectory, '\/ ') . DIRECTORY_SEPARATOR . 'bootstrap.php';
