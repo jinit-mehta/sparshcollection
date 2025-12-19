@@ -3,82 +3,183 @@
 namespace App\Controllers;
 
 use CodeIgniter\Controller;
-use Orhanerday\OpenAi\OpenAi;
 
-class OpenAIController extends Controller
+class OpenAIImageController extends Controller
 {
-    public function index()
+    private $apiKey;
+    
+    public function __construct()
     {
-        return view('admin/product/openai_form');
+        // Load API key from environment variable or config
+        $this->apiKey = getenv('OPENAI_API_KEY') ?: config('OpenAI')->apiKey;
+        
+        if (empty($this->apiKey)) {
+            throw new \RuntimeException('OpenAI API key not configured');
+        }
     }
 
-    public function generateImages()
+    // =========== Generate Image
+    public function generateImage()
     {
-        $openAi = new OpenAi(env('OPENAI_API_KEY'));
+        try {
+            $prompt = $this->request->getVar('prompt');
+            
+            if (empty($prompt)) {
+                return $this->response->setJSON([
+                    'error' => 'Prompt is required'
+                ])->setStatusCode(400);
+            }
 
-        $prompt = $this->request->getVar('prompt');
+            // Prepare the API request
+            $requestData = [
+                "prompt" => $prompt,
+                "n" => 1,
+                "size" => "256x256",
+                "response_format" => "b64_json"
+            ];
 
+            // Call OpenAI API
+            $response = $this->callOpenAIImageGeneration($requestData);
 
-        $complete = $openAi->image([
-            "prompt" => $prompt,
-            "n" => 1,
-            // number of images
-            "size" => "256x256",
-            // image dimension
-            "response_format" => "b64_json",
-            // use 'url' for less credit usage
-        ]);
-        // Pass the image data to the view
-        // Check if $complete is a string (JSON) and decode it into an array
-        $data['images'] = is_string($complete) ? json_decode($complete, true) : [];
-        // Encode the array as a JSON string before sending the response
-        $jsonResponse = json_encode($data['images']);
-        // return $jsonResponse;
+            if (isset($response['error'])) {
+                return $this->response->setJSON([
+                    'error' => $response['error']['message'] ?? 'Unknown error'
+                ])->setStatusCode(500);
+            }
 
-        // Return the JSON response
-        return $this->response->setJSON($data['images'])->setStatusCode(200);
+            return $this->response->setJSON($response)->setStatusCode(200);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Image generation error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Failed to generate image'
+            ])->setStatusCode(500);
+        }
     }
 
     // =========== Edit Image
     public function editImage()
     {
-        // Handle image and mask upload here
-        $image = $_FILES['image']['tmp_name'];
-        $mask = $_FILES['mask']['tmp_name'];
-        $prompt = $this->request->getVar('prompt');
+        try {
+            // Validate file uploads
+            if (!isset($_FILES['image']) || !isset($_FILES['mask'])) {
+                return $this->response->setJSON([
+                    'error' => 'Image and mask files are required'
+                ])->setStatusCode(400);
+            }
 
-        // Prepare data for DALL·E image edits endpoint
-        $formData = [
-            'prompt' => $prompt,
-            'image' => base64_encode(file_get_contents($image)),
-            'mask' => base64_encode(file_get_contents($mask))
-        ];
+            $image = $_FILES['image'];
+            $mask = $_FILES['mask'];
+            $prompt = $this->request->getVar('prompt');
 
-        // Call DALL·E image edits endpoint
-        $response = $this->callDALLEImageEditsEndpoint($formData);
+            if (empty($prompt)) {
+                return $this->response->setJSON([
+                    'error' => 'Prompt is required'
+                ])->setStatusCode(400);
+            }
 
-        // Return the edited image response to the frontend
-        return $this->response->setJSON($response)->setStatusCode(200);
+            // Validate file uploads
+            if ($image['error'] !== UPLOAD_ERR_OK || $mask['error'] !== UPLOAD_ERR_OK) {
+                return $this->response->setJSON([
+                    'error' => 'File upload failed'
+                ])->setStatusCode(400);
+            }
+
+            // Validate file types (PNG only for edits)
+            $allowedTypes = ['image/png'];
+            $imageType = mime_content_type($image['tmp_name']);
+            $maskType = mime_content_type($mask['tmp_name']);
+
+            if (!in_array($imageType, $allowedTypes) || !in_array($maskType, $allowedTypes)) {
+                return $this->response->setJSON([
+                    'error' => 'Only PNG images are supported'
+                ])->setStatusCode(400);
+            }
+
+            // Call DALL-E image edits endpoint
+            $response = $this->callOpenAIImageEdit($image['tmp_name'], $mask['tmp_name'], $prompt);
+
+            if (isset($response['error'])) {
+                return $this->response->setJSON([
+                    'error' => $response['error']['message'] ?? 'Unknown error'
+                ])->setStatusCode(500);
+            }
+
+            return $this->response->setJSON($response)->setStatusCode(200);
+
+        } catch (\Exception $e) {
+            log_message('error', 'Image edit error: ' . $e->getMessage());
+            return $this->response->setJSON([
+                'error' => 'Failed to edit image'
+            ])->setStatusCode(500);
+        }
     }
 
-    private function callDALLEImageEditsEndpoint($formData)
+    // =========== Private Helper Methods
+
+    private function callOpenAIImageGeneration($requestData)
     {
-        // Make a POST request to the DALL·E image edits endpoint using cURL or any HTTP client library
-        // Example using cURL:
-        $ch = curl_init('https://api.openai.com/v1/edit');
-        curl_setopt($ch, CURLOPT_POST, 1);
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($formData));
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json',
-            'Authorization: Bearer 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'
+        $ch = curl_init('https://api.openai.com/v1/images/generations');
+        
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => json_encode($requestData),
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'Content-Type: application/json',
+                'Authorization: Bearer ' . $this->apiKey
+            ],
+            CURLOPT_TIMEOUT => 60
         ]);
 
         $response = curl_exec($ch);
+        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            throw new \RuntimeException('cURL error: ' . $error);
+        }
+        
         curl_close($ch);
 
-        // Decode the JSON response and return it
         return json_decode($response, true);
     }
 
+    private function callOpenAIImageEdit($imagePath, $maskPath, $prompt)
+    {
+        $ch = curl_init('https://api.openai.com/v1/images/edits');
+        
+        // Create CURLFile objects for file upload
+        $postFields = [
+            'image' => new \CURLFile($imagePath, 'image/png', 'image.png'),
+            'mask' => new \CURLFile($maskPath, 'image/png', 'mask.png'),
+            'prompt' => $prompt,
+            'n' => 1,
+            'size' => '256x256',
+            'response_format' => 'b64_json'
+        ];
+
+        curl_setopt_array($ch, [
+            CURLOPT_POST => true,
+            CURLOPT_POSTFIELDS => $postFields,
+            CURLOPT_RETURNTRANSFER => true,
+            CURLOPT_HTTPHEADER => [
+                'Authorization: Bearer ' . $this->apiKey
+            ],
+            CURLOPT_TIMEOUT => 60
+        ]);
+
+        $response = curl_exec($ch);
+        
+        if (curl_errno($ch)) {
+            $error = curl_error($ch);
+            curl_close($ch);
+            throw new \RuntimeException('cURL error: ' . $error);
+        }
+        
+        curl_close($ch);
+
+        return json_decode($response, true);
+    }
 }
