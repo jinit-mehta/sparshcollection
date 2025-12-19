@@ -1,69 +1,59 @@
-# =========================
-# OS / Editor junk
-# =========================
+#--------------------------------------------------------------------
+# OS FILES
+#--------------------------------------------------------------------
 .DS_Store
 Thumbs.db
-*.swp
-*.swo
-.vscode/
+desktop.ini
+
+#--------------------------------------------------------------------
+# IDE FILES
+#--------------------------------------------------------------------
 .idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+nbproject/
 
-# =========================
-# Environment files
-# =========================
-.env
-.env.*
-!.env.example
-
-# =========================
-# Logs & cache
-# =========================
-writable/cache/*
-writable/logs/*
-writable/debugbar/*
-writable/session/*
-writable/uploads/*
-!writable/.htaccess
-!writable/index.html
-
-# =========================
-# PHPUnit / Tests
-# =========================
-phpunit.xml
-phpunit.xml.dist
-tests/_support/_generated/
-
-# =========================
-# Composer
-# =========================
+#--------------------------------------------------------------------
+# VENDOR
+#--------------------------------------------------------------------
 /vendor/
 composer.phar
 
-# =========================
-# Build / temp artifacts
-# =========================
-build/
-builds/
-node_modules/
-npm-debug.log*
-yarn-error.log*
+#--------------------------------------------------------------------
+# WRITABLE
+#--------------------------------------------------------------------
+/writable/cache/*
+/writable/logs/*
+/writable/session/*
+/writable/uploads/*
+/writable/debugbar/*
+!/writable/cache/.gitkeep
+!/writable/logs/.gitkeep
+!/writable/session/.gitkeep
+!/writable/uploads/.gitkeep
+!/writable/debugbar/.gitkeep
 
-# =========================
-# CI4 generated files
-# =========================
-spark.bat
+#--------------------------------------------------------------------
+# ENVIRONMENT
+#--------------------------------------------------------------------
+.env
 
-# =========================
-# Uploads (user content)
-# =========================
-public/assets/images/reviews/*
-public/assets/uploads/*
-!public/assets/images/reviews/.gitkeep
-!public/assets/uploads/.gitkeep
+#--------------------------------------------------------------------
+# BUILD
+#--------------------------------------------------------------------
+/build/
+*.log
 
-# =========================
-# Server-specific files
-# =========================
-.htaccess.bak
-.override
-DO NOT UPLOAD FILES HERE
+#--------------------------------------------------------------------
+# TESTING
+#--------------------------------------------------------------------
+/phpunit.xml
+.phpunit.result.cache
+
+#--------------------------------------------------------------------
+# VERCEL (Remove if migrating)
+#--------------------------------------------------------------------
+.vercel/
+vercel.json
+api/
