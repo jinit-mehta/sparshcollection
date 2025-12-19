@@ -1,0 +1,87 @@
+#!/usr/bin/env php
+<?php
+
+/**
+ * CodeIgniter 4 - Spark CLI Tool
+ * 
+ * This file is the entry point for the CodeIgniter 4 CLI.
+ */
+
+// Refuse to run when called from php-cgi
+if (strpos(PHP_SAPI, 'cgi') === 0) {
+    exit("The cli tool is not supported when running php-cgi. It needs php-cli to function!\n\n");
+}
+
+// Check PHP version
+$minPhpVersion = '8.1';
+if (version_compare(PHP_VERSION, $minPhpVersion, '<')) {
+    $message = "Your PHP version must be {$minPhpVersion} or higher to run CodeIgniter. Current version: " . PHP_VERSION;
+    exit($message . "\n");
+}
+
+// We want errors to be shown when using it from the CLI
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+// Path Constants
+define('FCPATH', __DIR__ . DIRECTORY_SEPARATOR . 'public' . DIRECTORY_SEPARATOR);
+define('ROOTPATH', __DIR__ . DIRECTORY_SEPARATOR);
+
+// Load Paths Configuration
+$pathsConfig = ROOTPATH . 'app/Config/Paths.php';
+
+if (!file_exists($pathsConfig)) {
+    exit("The configuration file 'app/Config/Paths.php' does not exist.\n");
+}
+
+require $pathsConfig;
+
+// Create Paths object
+$paths = new Config\Paths();
+
+// Define important paths if not already defined
+if (!defined('APPPATH')) {
+    define('APPPATH', realpath(rtrim($paths->appDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+
+if (!defined('WRITEPATH')) {
+    define('WRITEPATH', realpath(rtrim($paths->writableDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+
+if (!defined('SYSTEMPATH')) {
+    define('SYSTEMPATH', realpath(rtrim($paths->systemDirectory, '\\/ ')) . DIRECTORY_SEPARATOR);
+}
+
+// Validate paths exist
+if (!is_dir(APPPATH)) {
+    exit("Your application folder path does not appear to be set correctly. APPPATH: " . APPPATH . "\n");
+}
+
+if (!is_dir(SYSTEMPATH)) {
+    exit("Your system folder path does not appear to be set correctly. SYSTEMPATH: " . SYSTEMPATH . "\n");
+}
+
+if (!is_dir(WRITEPATH)) {
+    // Try to create writable directory
+    @mkdir(WRITEPATH, 0755, true);
+    if (!is_dir(WRITEPATH)) {
+        exit("Your writable folder path does not appear to be set correctly. WRITEPATH: " . WRITEPATH . "\n");
+    }
+}
+
+// Load the autoloader
+require_once SYSTEMPATH . 'bootstrap.php';
+
+// Load environment variables from .env file
+if (file_exists(ROOTPATH . '.env')) {
+    $dotenv = new \CodeIgniter\Config\DotEnv(ROOTPATH);
+    $dotenv->load();
+}
+
+// Grab our CodeIgniter instance
+$app = Config\Services::codeigniter();
+$app->initialize();
+$app->setContext('spark');
+
+// Run the application
+$app->run();
